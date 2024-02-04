@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/foundation.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -32,37 +32,43 @@ class MyHomePage extends StatelessWidget {
       body: ListView(
       shrinkWrap: true,
       padding: const EdgeInsets.fromLTRB(2.0, 10.0, 2.0, 10.0),
-      children: <Widget>[
+      children: const <Widget>[
         ProductBox(
           name: "iPhone",
           description: "iPhone is the stylist phone ever",
           price: 1000,
-          image: "iphone.png"),
+          assetImage: "iphone.png",
+          networkImage: ""),
         ProductBox(
           name: "Pixel",
           description: "Pixel is the most featureful phone ever",
           price: 800,
-          image: "pixel.png"),
+          assetImage: "pixel.png",
+          networkImage: ""),
         ProductBox(
           name: "Laptop",
           description: "Laptop is most productive development tool",
           price: 2000,
-          image: "laptop.png"),
+          assetImage: "laptop.png",
+          networkImage: ""),
         ProductBox(
           name: "Tablet",
           description: "Tablet is the most useful device ever for meeting",
           price: 1500,
-          image: "tablet.png"),
+          assetImage: "",
+          networkImage: "https://freepngimg.com/thumb/tablet/6-2-tablet-png-images.png"),
         ProductBox(
           name: "Pendrive",
           description: "Pendrive is useful storage medium",
           price: 100,
-          image: "pendrive.png"),
+          assetImage: "",
+          networkImage: "https://w7.pngwing.com/pngs/383/425/png-transparent-sandisk-pen-drive-thumbnail.png"),
         ProductBox(
           name: "Floppy Drive",
           description: "Floppy drive is useful rescue storage medium",
           price: 20,
-          image: "floppy.png"),
+          assetImage: "",
+          networkImage: "https://w7.pngwing.com/pngs/508/399/png-transparent-floppy-disk-computer-icons-disk-storage-others-miscellaneous-electronic-device-technology-thumbnail.png"),
         ],
       ));
 
@@ -73,8 +79,9 @@ class ProductBox extends StatelessWidget {
   final String name;
   final String description;
   final int price;
-  final String image;
-  const ProductBox({Key? key,  required this.name,required this.description,required this.price, required this.image}): super(key : key);
+  final String assetImage;
+  final String networkImage;
+  const ProductBox({Key? key,  required this.name,required this.description,required this.price, required this.assetImage, required this.networkImage, }): super(key : key);
     @override
     Widget build(BuildContext context) {
       return Container(
@@ -84,7 +91,10 @@ class ProductBox extends StatelessWidget {
         child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-          Image.asset("assets/appImage/" + image),
+            if (assetImage.isNotEmpty)
+              Image.asset("assets/appImage/" + assetImage),
+            if (networkImage.isNotEmpty)
+              Image.network(networkImage),
           Expanded(
           child: Container(
           padding: EdgeInsets.all(5),
